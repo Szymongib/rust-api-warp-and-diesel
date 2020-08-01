@@ -35,6 +35,17 @@ impl DBAccessManager {
             })
     }
 
+    pub fn get_book(&self, book_id: i64) -> Result<BookDTO, AppError> {
+        use super::schema::books::dsl::*;
+
+        books
+            .filter(id.eq(book_id))
+            .first(&self.connection)
+            .map_err(|err| {
+                AppError::from_diesel_err(err, "while getting book by id")
+            })
+    }
+
     pub fn update_book_status(&self, book_id: i64, new_status: BookStatus) -> Result<usize, AppError> {
         use super::schema::books::dsl::*;
 

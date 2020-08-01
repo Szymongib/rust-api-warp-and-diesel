@@ -87,6 +87,17 @@ pub async fn list_books(
     respond(result, warp::http::StatusCode::OK)
 }
 
+pub async fn get_book(
+    book_id: i64,
+    db_manager: DBAccessManager,
+) -> Result<impl warp::Reply, warp::Rejection> {
+    log::info!("handling get book");
+
+    let result = db_manager.get_book(book_id);
+
+    respond(result, warp::http::StatusCode::OK)
+}
+
 fn respond<T: Serialize>(result: Result<T, AppError>, status: warp::http::StatusCode) -> Result<impl warp::Reply, warp::Rejection> {
     match result {
         Ok(response) => {

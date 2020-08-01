@@ -72,6 +72,7 @@ fn api_filters(
             add_book(pool.clone())
                 .or(update_status(pool.clone()))
                 .or(delete_book(pool.clone()))
+                .or(get_book(pool.clone()))
                 .or(list_books(pool))
         )
 }
@@ -97,6 +98,16 @@ fn list_books(
         .and(warp::get())
         .and(with_db_access_manager(pool))
         .and_then(api::list_books)
+}
+
+/// GET /book/:id
+fn get_book(
+    pool: PgPool
+) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("books" / i64 )
+        .and(warp::get())
+        .and(with_db_access_manager(pool))
+        .and_then(api::get_book)
 }
 
 /// PUT /books/:id
