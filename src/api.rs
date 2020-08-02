@@ -4,7 +4,7 @@ use crate::AppError;
 use crate::data_access::DBAccessManager;
 use serde::Serialize;
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct AddBook {
     pub title: String,
     pub author: String,
@@ -21,12 +21,12 @@ impl AddBook {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct UpdateStatus {
     pub status: BookStatus,
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Serialize, Clone)]
 pub struct IdResponse {
     pub id: i64,
 }

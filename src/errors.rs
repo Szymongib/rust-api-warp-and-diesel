@@ -87,7 +87,7 @@ pub async fn handle_rejection(err: Rejection) -> Result<impl Reply, Infallible> 
         // We should have expected this... Just log and say its a 500
         eprintln!("unhandled rejection: {:?}", err);
         code = warp::http::StatusCode::INTERNAL_SERVER_ERROR;
-        message = "UNHANDLED_REJECTION";
+        message = "Unhandled rejection";
     }
 
     let json = warp::reply::json(&ErrorMessage {
